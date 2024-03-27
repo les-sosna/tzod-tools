@@ -12,10 +12,9 @@ def find_grid_dimensions(n):
     columns = n // rows
     return rows, columns
 
-def stitch_images_in_grid(input_prefix, output_filename):
-    """Stitch images from input directory matching the input_prefix into a grid atlas."""
-    pattern = f"{input_prefix}*.png"
-    files = sorted(glob.glob(pattern))
+def stitch_images_in_grid(input_pattern, output_filename):
+    """Stitch images from input directory matching the pattern into a grid atlas."""
+    files = sorted(glob.glob(input_pattern))
     
     if not files:
         print("No matching images found.")
@@ -41,6 +40,8 @@ def stitch_images_in_grid(input_prefix, output_filename):
 
     # Save the final image
     atlas.save(output_filename, format='TGA')
+
+    print(f"Stitched {total_images} images into {output_filename}.")
 
 def main():
     parser = argparse.ArgumentParser(description='Stitch images into a grid atlas.')
